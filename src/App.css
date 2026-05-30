@@ -1,0 +1,27 @@
+/* App-level overrides — all main styles are in index.css */
+
+/* Smooth section transitions */
+section {
+  position: relative;
+}
+
+/* Ensure canvas elements don't block pointer events on overlays */
+canvas {
+  display: block;
+}
+
+/* Prevent layout shift from scrollbar */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid #FF6B00;
+  outline-offset: 2px;
+}
+
+/* Smooth image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
