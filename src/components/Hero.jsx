@@ -206,18 +206,10 @@ const Hero = () => {
       <div style={{ position:"absolute", inset:0, pointerEvents:"none", zIndex:0,
         background:"radial-gradient(ellipse 120% 100% at 70% 50%, rgba(14,0,30,0.85) 0%, #020208 55%)" }}/>
 
-      {/* ── galaxy canvas — covers RIGHT 55% absolutely ── */}
-      <div style={{
-        position:"absolute", top:0, right:0,
-        width:"55%", height:"100%",
-        zIndex:1, pointerEvents:"none"
-      }}>
-        {/* left-edge fade so galaxy doesn't bleed into text */}
-        <div style={{
-          position:"absolute", top:0, left:0, bottom:0,
-          width:"45%", zIndex:2, pointerEvents:"none",
-          background:"linear-gradient(to right, #020208 0%, transparent 100%)"
-        }}/>
+      {/* ── galaxy canvas — covers RIGHT 55% on desktop, full-width on mobile ── */}
+      <div className="hero-canvas-wrap">
+        {/* left-edge fade so galaxy doesn't bleed into text (desktop only) */}
+        <div className="hero-canvas-fade"/>
         <Canvas
           camera={{ position:[0, 4.5, 8], fov:48 }}
           gl={{ antialias:true, alpha:true }}
@@ -239,18 +231,8 @@ const Hero = () => {
 
       {/* ══════════════════════════════════════
           TEXT — in normal flow, LEFT side
-          max-width 48% keeps it off the galaxy
           ══════════════════════════════════════ */}
-      <div style={{
-        position:"relative", zIndex:10,
-        minHeight:"100vh",
-        display:"flex", alignItems:"center",
-        paddingLeft:"clamp(24px, 6vw, 100px)",
-        paddingTop:"100px", paddingBottom:"80px",
-        paddingRight:"0",
-        width:"48%",          /* ← text column width */
-        boxSizing:"border-box"
-      }}>
+      <div className="hero-text-wrap">
         <div style={{ width:"100%" }}>
 
           {/* badges */}
@@ -277,7 +259,7 @@ const Hero = () => {
             initial={{ opacity:0, x:-60 }} animate={{ opacity:1, x:0 }}
             transition={{ duration:0.85, delay:0.35, ease }}
             style={{
-              fontSize:"clamp(30px, 3.5vw, 56px)",
+              fontSize:"clamp(36px, 5vw, 56px)",
               fontWeight:"900", lineHeight:"1.12",
               letterSpacing:"-0.03em", marginBottom:"20px",
               fontFamily:"'Space Grotesk', sans-serif",
@@ -303,7 +285,7 @@ const Hero = () => {
           <motion.p
             initial={{ opacity:0, x:-50 }} animate={{ opacity:1, x:0 }}
             transition={{ duration:0.75, delay:0.52, ease }}
-            style={{ fontSize:"clamp(13px,1.2vw,15px)", color:"rgba(255,255,255,0.48)", lineHeight:"1.8", marginBottom:"36px", fontWeight:"400", textAlign:"left" }}
+            style={{ fontSize:"clamp(14px,1.4vw,16px)", color:"rgba(255,255,255,0.48)", lineHeight:"1.8", marginBottom:"36px", fontWeight:"400", textAlign:"left" }}
           >
             A bold new technology company founded in 2026 — building transformative AI solutions,
             enterprise software, and digital experiences that redefine what is possible.
@@ -363,7 +345,7 @@ const Hero = () => {
       {/* scroll indicator */}
       <motion.div
         initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1.7 }}
-        style={{ position:"absolute", bottom:"28px", left:"24%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:"6px", zIndex:10 }}
+        className="hero-scroll-indicator"
       >
         <span style={{ fontSize:"9px", color:"rgba(255,255,255,0.2)", letterSpacing:"0.22em", textTransform:"uppercase" }}>Scroll</span>
         <motion.div
@@ -374,9 +356,76 @@ const Hero = () => {
 
       <style>{`
         @keyframes shimmer { 0%{background-position:0% center} 100%{background-position:200% center} }
-        @media (max-width: 900px) {
-          #hero > div:nth-child(3) { width:100% !important; height:50vh !important; top:auto !important; position:relative !important; }
-          #hero > div:nth-child(6) { width:100% !important; padding:100px 24px 40px !important; }
+
+        /* ── Canvas wrapper ── */
+        .hero-canvas-wrap {
+          position: absolute;
+          top: 0; right: 0;
+          width: 55%; height: 100%;
+          z-index: 1; pointer-events: none;
+        }
+        .hero-canvas-fade {
+          position: absolute;
+          top: 0; left: 0; bottom: 0;
+          width: 45%; z-index: 2; pointer-events: none;
+          background: linear-gradient(to right, #020208 0%, transparent 100%);
+        }
+
+        /* ── Text wrapper ── */
+        .hero-text-wrap {
+          position: relative; z-index: 10;
+          min-height: 100vh;
+          display: flex; align-items: center;
+          padding: 100px clamp(24px,6vw,100px) 80px clamp(24px,6vw,100px);
+          width: 48%;
+          box-sizing: border-box;
+        }
+
+        /* ── Scroll indicator ── */
+        .hero-scroll-indicator {
+          position: absolute;
+          bottom: 28px; left: 24%;
+          transform: translateX(-50%);
+          display: flex; flex-direction: column;
+          align-items: center; gap: 6px; z-index: 10;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+          /* Stack canvas on top, text below */
+          .hero-canvas-wrap {
+            position: relative !important;
+            width: 100% !important;
+            height: 55vw !important;
+            min-height: 220px;
+            max-height: 320px;
+          }
+          .hero-canvas-fade {
+            /* on mobile fade from bottom instead of left */
+            top: auto !important; left: 0 !important;
+            bottom: 0 !important; right: 0 !important;
+            width: 100% !important; height: 40% !important;
+            background: linear-gradient(to top, #020208 0%, transparent 100%) !important;
+          }
+          .hero-text-wrap {
+            width: 100% !important;
+            min-height: unset !important;
+            padding: 32px 20px 60px !important;
+            align-items: flex-start !important;
+          }
+          #hero {
+            display: flex !important;
+            flex-direction: column !important;
+          }
+          .hero-scroll-indicator {
+            left: 50% !important;
+          }
+        }
+
+        /* ── Tablet ── */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-canvas-wrap { width: 52% !important; }
+          .hero-text-wrap { width: 52% !important; padding-right: 12px !important; }
         }
       `}</style>
     </section>
