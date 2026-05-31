@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Linkedin, Twitter, Github, Instagram, Youtube, ArrowUpRight, Mail, CheckCircle, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Link, Share2, ExternalLink, AtSign, Hash, ArrowUpRight, Mail, CheckCircle } from 'lucide-react';
 
 // ── Update these with real URLs ──────────────────────────────────────────────
 const SOCIAL_LINKS = {
@@ -41,11 +41,11 @@ const footerSections = {
 };
 
 const socials = [
-  { icon: Linkedin,  label: 'LinkedIn',  key: 'LinkedIn'  },
-  { icon: Twitter,   label: 'Twitter',   key: 'Twitter'   },
-  { icon: Github,    label: 'GitHub',    key: 'GitHub'    },
-  { icon: Instagram, label: 'Instagram', key: 'Instagram' },
-  { icon: Youtube,   label: 'YouTube',   key: 'YouTube'   },
+  { icon: Link,         label: 'LinkedIn',  key: 'LinkedIn'  },
+  { icon: Share2,       label: 'Twitter',   key: 'Twitter'   },
+  { icon: ExternalLink, label: 'GitHub',    key: 'GitHub'    },
+  { icon: AtSign,       label: 'Instagram', key: 'Instagram' },
+  { icon: Hash,         label: 'YouTube',   key: 'YouTube'   },
 ];
 
 const Footer = () => {
@@ -102,8 +102,7 @@ const Footer = () => {
                 whileHover={subState === 'idle' ? { scale: 1.04, boxShadow: '0 0 30px rgba(255,107,0,0.4)' } : {}}
                 whileTap={subState === 'idle' ? { scale: 0.97 } : {}}
                 style={{ background: subState === 'done' ? 'rgba(16,185,129,0.2)' : 'linear-gradient(135deg, #FF6B00, #FF3B30)', color: subState === 'done' ? '#10B981' : 'white', border: subState === 'done' ? '1px solid rgba(16,185,129,0.4)' : 'none', padding: '12px 24px', borderRadius: '12px', fontSize: '14px', fontWeight: '600', cursor: subState === 'idle' ? 'pointer' : 'default', display: 'flex', alignItems: 'center', gap: '8px', transition: 'all 0.3s' }}>
-                {subState === 'done' ? <><CheckCircle size={16} /> Subscribed!</> : subState === 'loading' ? 'Subscribing...' : 'Subscribe'}
-              </motion.button>
+                {subState === 'done' ? <><CheckCircle size={16} /> Subscribed!</> : subState === 'loading' ? 'Subscribing...' : 'Subscribe'}              </motion.button>
             </form>
           </div>
         </div>
