@@ -3,10 +3,14 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle, ArrowRight, MessageSquare, Calendar } from 'lucide-react';
 import { Reveal, Stagger, StaggerChild } from './AnimatedSection';
 
+const CONTACT_EMAIL = 'hello@guhanix.com';
+const WHATSAPP_NUMBER = ''; // e.g. '919876543210' — add your WhatsApp number here
+const CALENDLY_URL = ''; // e.g. 'https://calendly.com/guhanix' — add your Calendly link here
+
 const contactInfo = [
-  { icon: Mail, label: 'Email Us', value: 'hello@guhanix.com', color: '#FF6B00' },
-  { icon: Phone, label: 'Call Us', value: '+1 (555) 000-0000', color: '#1A8FFF' },
-  { icon: MapPin, label: 'Headquarters', value: 'San Francisco, CA', color: '#10B981' },
+  { icon: Mail,   label: 'Email Us',      value: 'hello@guhanix.com',   color: '#FF6B00', action: () => window.open(`mailto:${CONTACT_EMAIL}`, '_blank') },
+  { icon: Phone,  label: 'Call Us',       value: '+91 00000 00000',      color: '#1A8FFF', action: () => window.open('tel:+910000000000', '_blank') },
+  { icon: MapPin, label: 'Headquarters',  value: 'Chennai, Tamil Nadu',  color: '#10B981', action: null },
 ];
 
 const FloatingInput = ({ label, type = 'text', name, value, onChange, required, multiline }) => {
@@ -88,8 +92,15 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1800));
+    // Build a mailto link with all form data
+    const subject = encodeURIComponent(`[Guhanix Inquiry] ${formData.service ? formData.service.toUpperCase() + ' - ' : ''}${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || 'N/A'}\nService: ${formData.service || 'General'}\n\nMessage:\n${formData.message}`
+    );
+    window.open(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`, '_blank');
+    await new Promise(r => setTimeout(r, 800));
     setLoading(false);
     setSubmitted(true);
   };
@@ -164,12 +175,13 @@ const Contact = () => {
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                   whileHover={{ x: 6 }}
+                  onClick={() => info.action?.()}
                   style={{
                     display: 'flex', alignItems: 'center', gap: '16px',
                     background: 'rgba(255,255,255,0.03)',
                     border: '1px solid rgba(255,255,255,0.07)',
                     borderRadius: '14px', padding: '16px 20px',
-                    transition: 'all 0.3s ease', cursor: 'default'
+                    transition: 'all 0.3s ease', cursor: info.action ? 'pointer' : 'default'
                   }}
                 >
                   <div style={{
@@ -196,11 +208,18 @@ const Contact = () => {
             {/* Quick actions */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {[
-                { icon: MessageSquare, label: 'Live Chat Support', sub: 'Available 9am–6pm PST', color: '#FF6B00' },
-                { icon: Calendar, label: 'Schedule a Call', sub: 'Book a 30-min discovery call', color: '#1A8FFF' },
+                { icon: MessageSquare, label: 'Live Chat / WhatsApp', sub: 'Message us on WhatsApp', color: '#FF6B00',
+                  action: () => WHATSAPP_NUMBER
+                    ? window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Guhanix%2C%20I%27d%20like%20to%20discuss%20a%20project`, '_blank')
+                    : window.open(`mailto:${CONTACT_EMAIL}?subject=Live%20Chat%20Request`, '_blank') },
+                { icon: Calendar, label: 'Schedule a Call', sub: 'Book a 30-min discovery call', color: '#1A8FFF',
+                  action: () => CALENDLY_URL
+                    ? window.open(CALENDLY_URL, '_blank')
+                    : window.open(`mailto:${CONTACT_EMAIL}?subject=Schedule%20a%20Discovery%20Call&body=Hi%2C%20I%27d%20like%20to%20schedule%20a%2030-minute%20discovery%20call.%20My%20availability%3A%20`, '_blank') },
               ].map((action, i) => (
                 <motion.button
                   key={i}
+                  onClick={action.action}
                   whileHover={{ scale: 1.02, borderColor: `${action.color}40` }}
                   whileTap={{ scale: 0.98 }}
                   style={{

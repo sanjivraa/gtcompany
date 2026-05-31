@@ -4,13 +4,24 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { Reveal, Stagger, StaggerChild } from "./AnimatedSection";
 
 const projects = [
-  { title: "NeuralCore AI Platform",  category: "AI / Machine Learning",  emoji: "🧠", color: "#FF6B00", gradient: "linear-gradient(135deg,#FF6B00,#FF3B30)", tags: ["Python","TensorFlow","React","AWS"],     metrics: ["10M+ Daily Requests","99.9% Uptime","40% Cost Reduction"],  desc: "Enterprise-grade AI platform processing 10M+ data points daily with real-time predictive analytics." },
-  { title: "CloudVault Enterprise",   category: "Cloud Infrastructure",    emoji: "☁️", color: "#1A8FFF", gradient: "linear-gradient(135deg,#1A8FFF,#0A6FD4)", tags: ["AWS","Kubernetes","Go","Terraform"],    metrics: ["500TB+ Data","99.99% SLA","60% Faster Deploy"],              desc: "Multi-cloud management platform serving Fortune 500 companies with automated scaling." },
-  { title: "FinTech Pro Suite",        category: "Enterprise Software",     emoji: "💹", color: "#10B981", gradient: "linear-gradient(135deg,#10B981,#059669)", tags: ["Next.js","Node.js","PostgreSQL","Redis"], metrics: ["$2B+ Transactions","150ms Response","SOC2 Certified"],       desc: "Comprehensive financial management platform with real-time trading analytics and risk assessment." },
-  { title: "MediSync Health App",      category: "Mobile Application",      emoji: "🏥", color: "#0A6FD4", gradient: "linear-gradient(135deg,#0A6FD4,#1565C0)", tags: ["Flutter","Python","Firebase","ML Kit"],  metrics: ["500K+ Users","4.9★ Rating","HIPAA Compliant"],               desc: "AI-powered healthcare platform connecting 500K+ patients with doctors and real-time diagnostics." },
-  { title: "RetailIQ Analytics",       category: "Business Intelligence",   emoji: "📊", color: "#F59E0B", gradient: "linear-gradient(135deg,#F59E0B,#D97706)", tags: ["React","Python","Spark","Tableau"],     metrics: ["200+ Stores","35% Revenue Lift","Real-time Insights"],       desc: "Real-time retail analytics platform with AI-driven demand forecasting and inventory optimization." },
-  { title: "SmartCity Platform",       category: "IoT / Smart Systems",     emoji: "🏙️", color: "#FF3B30", gradient: "linear-gradient(135deg,#FF3B30,#FF6B00)", tags: ["IoT","React","Node.js","MongoDB"],      metrics: ["3 Cities","1M+ Sensors","25% Energy Saved"],                desc: "Integrated smart city management system handling traffic, utilities, and public services." },
+  { title: "NeuralCore AI Platform",  category: "AI / Machine Learning",  emoji: "🧠", color: "#FF6B00", gradient: "linear-gradient(135deg,#FF6B00,#FF3B30)", tags: ["Python","TensorFlow","React","AWS"],     metrics: ["10M+ Daily Requests","99.9% Uptime","40% Cost Reduction"],  desc: "Enterprise-grade AI platform processing 10M+ data points daily with real-time predictive analytics.",        service: "ai"       },
+  { title: "CloudVault Enterprise",   category: "Cloud Infrastructure",    emoji: "☁️", color: "#1A8FFF", gradient: "linear-gradient(135deg,#1A8FFF,#0A6FD4)", tags: ["AWS","Kubernetes","Go","Terraform"],    metrics: ["500TB+ Data","99.99% SLA","60% Faster Deploy"],              desc: "Multi-cloud management platform serving Fortune 500 companies with automated scaling.",                      service: "cloud"    },
+  { title: "FinTech Pro Suite",        category: "Enterprise Software",     emoji: "💹", color: "#10B981", gradient: "linear-gradient(135deg,#10B981,#059669)", tags: ["Next.js","Node.js","PostgreSQL","Redis"], metrics: ["$2B+ Transactions","150ms Response","SOC2 Certified"],       desc: "Comprehensive financial management platform with real-time trading analytics and risk assessment.",           service: "enterprise"},
+  { title: "MediSync Health App",      category: "Mobile Application",      emoji: "🏥", color: "#0A6FD4", gradient: "linear-gradient(135deg,#0A6FD4,#1565C0)", tags: ["Flutter","Python","Firebase","ML Kit"],  metrics: ["500K+ Users","4.9★ Rating","HIPAA Compliant"],               desc: "AI-powered healthcare platform connecting 500K+ patients with doctors and real-time diagnostics.",            service: "mobile"   },
+  { title: "RetailIQ Analytics",       category: "Business Intelligence",   emoji: "📊", color: "#F59E0B", gradient: "linear-gradient(135deg,#F59E0B,#D97706)", tags: ["React","Python","Spark","Tableau"],     metrics: ["200+ Stores","35% Revenue Lift","Real-time Insights"],       desc: "Real-time retail analytics platform with AI-driven demand forecasting and inventory optimization.",           service: "enterprise"},
+  { title: "SmartCity Platform",       category: "IoT / Smart Systems",     emoji: "🏙️", color: "#FF3B30", gradient: "linear-gradient(135deg,#FF3B30,#FF6B00)", tags: ["IoT","React","Node.js","MongoDB"],      metrics: ["3 Cities","1M+ Sensors","25% Energy Saved"],                desc: "Integrated smart city management system handling traffic, utilities, and public services.",                   service: "enterprise"},
 ];
+
+const scrollToContact = (service) => {
+  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => {
+    const select = document.querySelector('select[name="service"]');
+    if (select && service) {
+      select.value = service;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }, 800);
+};
 
 export default function Projects() {
   const [hovered, setHovered] = useState(null);
@@ -37,6 +48,7 @@ export default function Projects() {
               <motion.div
                 onHoverStart={() => setHovered(i)} onHoverEnd={() => setHovered(null)}
                 whileHover={{ y: -10 }}
+                onClick={() => scrollToContact(p.service)}
                 style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${hovered === i ? p.color + "45" : "rgba(255,255,255,0.07)"}`, borderRadius: "20px", overflow: "hidden", cursor: "pointer", transition: "border-color 0.3s", height: "100%" }}>
                 {/* header */}
                 <div style={{ height: "150px", position: "relative", background: p.gradient, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
@@ -70,9 +82,9 @@ export default function Projects() {
         </Stagger>
 
         <Reveal dir="up" delay={0.2} style={{ textAlign: "center", marginTop: "48px" }}>
-          <motion.button whileHover={{ scale: 1.04, boxShadow: "0 0 30px rgba(255,107,0,0.25)" }} whileTap={{ scale: 0.97 }}
+          <motion.button onClick={() => scrollToContact()} whileHover={{ scale: 1.04, boxShadow: "0 0 30px rgba(255,107,0,0.25)" }} whileTap={{ scale: 0.97 }}
             style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,107,0,0.3)", color: "#FF6B00", padding: "12px 28px", borderRadius: "11px", fontSize: "13px", fontWeight: "600", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "7px" }}>
-            View All Case Studies <ExternalLink size={14} />
+            Discuss a Similar Project <ExternalLink size={14} />
           </motion.button>
         </Reveal>
       </div>
