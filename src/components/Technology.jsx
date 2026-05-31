@@ -75,7 +75,7 @@ const Technology = () => {
 
   return (
     <section id="technology" className="section-padding" style={{
-      background: "linear-gradient(180deg,#050505 0%,#080808 50%,#050505 100%)",
+      background: "linear-gradient(180deg,#050A14 0%,#080f1c 50%,#050A14 100%)",
       position: "relative", overflow: "hidden"
     }}>
       <div className="container">
@@ -97,7 +97,7 @@ const Technology = () => {
             <Canvas camera={{ position: [0, 0, 8], fov: 50 }} gl={{ antialias: true, alpha: true }} dpr={[1, 1.5]}>
               <ambientLight intensity={0.4} />
               <pointLight position={[10, 10, 10]} intensity={2} color="#FF6B00" />
-              <pointLight position={[-10, -10, -10]} intensity={1} color="#00BFFF" />
+              <pointLight position={[-10, -10, -10]} intensity={1} color="#1A8FFF" />
               <Suspense fallback={null}><TechSphere /></Suspense>
             </Canvas>
           </Reveal>

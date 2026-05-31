@@ -5,7 +5,7 @@ import { Reveal, Stagger, StaggerChild } from './AnimatedSection';
 
 const contactInfo = [
   { icon: Mail, label: 'Email Us', value: 'hello@guhanix.com', color: '#FF6B00' },
-  { icon: Phone, label: 'Call Us', value: '+1 (555) 000-0000', color: '#00BFFF' },
+  { icon: Phone, label: 'Call Us', value: '+1 (555) 000-0000', color: '#1A8FFF' },
   { icon: MapPin, label: 'Headquarters', value: 'San Francisco, CA', color: '#10B981' },
 ];
 
@@ -99,7 +99,7 @@ const Contact = () => {
       id="contact"
       ref={ref}
       className="section-padding"
-      style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}
+      style={{ background: '#050A14', position: 'relative', overflow: 'hidden' }}
     >
       {/* Background */}
       <div style={{
@@ -197,7 +197,7 @@ const Contact = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {[
                 { icon: MessageSquare, label: 'Live Chat Support', sub: 'Available 9am–6pm PST', color: '#FF6B00' },
-                { icon: Calendar, label: 'Schedule a Call', sub: 'Book a 30-min discovery call', color: '#00BFFF' },
+                { icon: Calendar, label: 'Schedule a Call', sub: 'Book a 30-min discovery call', color: '#1A8FFF' },
               ].map((action, i) => (
                 <motion.button
                   key={i}

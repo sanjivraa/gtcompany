@@ -6,10 +6,11 @@
 :root {
   --primary: #FF6B00;
   --secondary: #FF3B30;
-  --accent: #00BFFF;
-  --bg: #050505;
-  --bg-2: #0a0a0a;
-  --bg-3: #111111;
+  --accent: #1A8FFF;
+  --accent-deep: #0A6FD4;
+  --bg: #050A14;
+  --bg-2: #080f1c;
+  --bg-3: #0d1626;
   --text: #ffffff;
   --text-muted: #a0a0a0;
   --text-dim: #666666;
@@ -17,10 +18,10 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-hover: rgba(255, 255, 255, 0.07);
   --gradient-primary: linear-gradient(135deg, #FF6B00, #FF3B30);
-  --gradient-accent: linear-gradient(135deg, #00BFFF, #0080FF);
-  --gradient-dark: linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
+  --gradient-accent: linear-gradient(135deg, #1A8FFF, #0A6FD4);
+  --gradient-dark: linear-gradient(180deg, #050A14 0%, #080f1c 100%);
   --shadow-primary: 0 0 40px rgba(255, 107, 0, 0.3);
-  --shadow-accent: 0 0 40px rgba(0, 191, 255, 0.3);
+  --shadow-accent: 0 0 40px rgba(26, 143, 255, 0.3);
   --font-main: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
   --radius: 16px;

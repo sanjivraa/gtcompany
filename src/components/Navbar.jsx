@@ -39,7 +39,7 @@ const Navbar = () => {
           zIndex: 1000,
           padding: scrolled ? '12px 0' : '20px 0',
           background: scrolled
-            ? 'rgba(5,5,5,0.85)'
+            ? 'rgba(5,10,20,0.88)'
             : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
@@ -53,38 +53,29 @@ const Navbar = () => {
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             whileHover={{ scale: 1.02 }}
-            style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}
           >
             <motion.div
-              animate={{ boxShadow: ['0 0 20px rgba(255,107,0,0.3)', '0 0 40px rgba(255,107,0,0.6)', '0 0 20px rgba(255,107,0,0.3)'] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              style={{
-                width: '38px', height: '38px',
-                background: 'linear-gradient(135deg, #FF6B00, #FF3B30)',
-                borderRadius: '10px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '18px', fontWeight: '900',
-                fontFamily: "'Space Grotesk', sans-serif",
-                color: 'white', letterSpacing: '-1px'
-              }}
+              animate={{ filter: ['drop-shadow(0 0 8px rgba(255,107,0,0.4))', 'drop-shadow(0 0 16px rgba(26,143,255,0.5))', 'drop-shadow(0 0 8px rgba(255,107,0,0.4))'] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+              style={{ width: '42px', height: '42px', flexShrink: 0 }}
             >
-              G
+              <img src="/src/assets/logo.svg" alt="Guhanix Logo" style={{ width: '42px', height: '42px', borderRadius: '10px' }} />
             </motion.div>
             <div>
               <div style={{
                 fontSize: '16px', fontWeight: '700',
                 fontFamily: "'Space Grotesk', sans-serif",
-                color: 'white', letterSpacing: '-0.02em',
                 lineHeight: 1
               }}>
-                Guhanix
+                <span style={{ color: '#1A8FFF' }}>GUHA</span><span style={{ color: '#FF6B00' }}>NIX</span>
               </div>
               <div style={{
                 fontSize: '9px', fontWeight: '500',
-                color: 'rgba(255,107,0,0.8)', letterSpacing: '0.2em',
+                color: 'rgba(255,255,255,0.5)', letterSpacing: '0.2em',
                 textTransform: 'uppercase', lineHeight: 1, marginTop: '2px'
               }}>
-                Technologies
+                TECHNOLOGY
               </div>
             </div>
           </motion.a>
@@ -171,7 +162,7 @@ const Navbar = () => {
             style={{
               position: 'fixed', top: '70px', left: 0, right: 0,
               zIndex: 999,
-              background: 'rgba(5,5,5,0.97)',
+              background: 'rgba(5,10,20,0.97)',
               backdropFilter: 'blur(20px)',
               borderBottom: '1px solid rgba(255,255,255,0.08)',
               padding: '20px 24px 30px'

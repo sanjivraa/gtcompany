@@ -39,7 +39,7 @@ function Counter({ value, suffix }) {
 
 export default function About() {
   return (
-    <section id="about" className="section-padding" style={{ background: "#050505", position: "relative", overflow: "hidden" }}>
+    <section id="about" className="section-padding" style={{ background: "#050A14", position: "relative", overflow: "hidden" }}>
       {/* bg glow */}
       <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "700px", height: "700px", background: "radial-gradient(circle,rgba(255,107,0,0.04) 0%,transparent 70%)", pointerEvents: "none" }} />
 
@@ -81,13 +81,13 @@ export default function About() {
           {[
             { icon: Target, title: "Our Mission", color: "#FF6B00", dir: "left",
               text: "To empower organizations worldwide with cutting-edge technology solutions that drive measurable growth, operational excellence, and competitive advantage." },
-            { icon: Eye, title: "Our Vision", color: "#00BFFF", dir: "right",
+            { icon: Eye, title: "Our Vision", color: "#1A8FFF", dir: "right",
               text: "To be the most trusted technology partner for enterprises globally — known for innovation, reliability, and transformative impact that shapes the future." },
           ].map((item, i) => (
             <Reveal key={i} dir={item.dir} delay={i * 0.1}>
               <motion.div whileHover={{ y: -5 }}
-                style={{ background: "rgba(255,255,255,0.03)", border: `1px solid rgba(${i === 0 ? "255,107,0" : "0,191,255"},0.15)`, borderRadius: "20px", padding: "32px", transition: "all 0.3s", height: "100%" }}>
-                <div style={{ width: "48px", height: "48px", background: `rgba(${i === 0 ? "255,107,0" : "0,191,255"},0.1)`, borderRadius: "13px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "18px" }}>
+                style={{ background: "rgba(255,255,255,0.03)", border: `1px solid rgba(${i === 0 ? "255,107,0" : "26,143,255"},0.15)`, borderRadius: "20px", padding: "32px", transition: "all 0.3s", height: "100%" }}>
+                <div style={{ width: "48px", height: "48px", background: `rgba(${i === 0 ? "255,107,0" : "26,143,255"},0.1)`, borderRadius: "13px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "18px" }}>
                   <item.icon size={22} color={item.color} />
                 </div>
                 <h3 style={{ fontSize: "19px", fontWeight: "700", marginBottom: "12px", color: item.color }}>{item.title}</h3>

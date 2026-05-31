@@ -18,7 +18,7 @@ const testimonials = [
     role: 'VP Engineering, CloudScale',
     company: 'CloudScale',
     avatar: 'JT',
-    color: '#00BFFF',
+    color: '#1A8FFF',
     rating: 5,
     text: 'Working with Guhanix felt like having a world-class engineering team embedded in our company. They delivered our cloud migration 3 weeks ahead of schedule with zero downtime. The quality of their architecture decisions is exceptional.',
     metric: '3 Weeks Ahead of Schedule'
@@ -28,7 +28,7 @@ const testimonials = [
     role: 'CEO, MediSync Health',
     company: 'MediSync',
     avatar: 'PS',
-    color: '#7C3AED',
+    color: '#0A6FD4',
     rating: 5,
     text: 'Our healthcare app went from concept to 500K users in 8 months. Guhanix\'s Flutter expertise and AI integration capabilities are genuinely world-class. The app has a 4.9-star rating and our patient engagement increased by 300%.',
     metric: '500K Users in 8 Months'
@@ -116,7 +116,7 @@ const Testimonials = () => {
       id="testimonials"
       ref={ref}
       className="section-padding"
-      style={{ background: '#050505', position: 'relative', overflow: 'hidden' }}
+      style={{ background: '#050A14', position: 'relative', overflow: 'hidden' }}
     >
       {/* Background */}
       <div style={{

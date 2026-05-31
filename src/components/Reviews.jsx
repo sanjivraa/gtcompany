@@ -15,7 +15,7 @@ const defaultReviews = [
     id: 2, name: "Priya Nair", role: "Product Manager",
     rating: 5, date: "2025-05-18",
     text: "Worked with Sanjiv and the team on our MVP. The attention to detail, the animations, the performance — everything was top-notch. A startup that punches way above its weight.",
-    helpful: 8, avatar: "PN", color: "#00BFFF"
+    helpful: 8, avatar: "PN", color: "#1A8FFF"
   },
   {
     id: 3, name: "Marcus Lee", role: "Startup Founder",
@@ -202,7 +202,7 @@ const Reviews = () => {
     if (!form.text.trim() || form.text.trim().length < 20) { setFormError("Review must be at least 20 characters."); return; }
     setFormError("");
 
-    const colors = ["#FF6B00", "#00BFFF", "#10B981", "#7C3AED", "#F59E0B", "#FF3B30"];
+    const colors = ["#FF6B00", "#1A8FFF", "#10B981", "#0A6FD4", "#F59E0B", "#FF3B30"];
     const newReview = {
       id: Date.now(),
       name: form.name.trim(),
@@ -225,7 +225,7 @@ const Reviews = () => {
 
   return (
     <section id="reviews" ref={ref} className="section-padding" style={{
-      background: "linear-gradient(180deg, #050505 0%, #080808 50%, #050505 100%)",
+      background: "linear-gradient(180deg, #050A14 0%, #080f1c 50%, #050A14 100%)",
       position: "relative", overflow: "hidden"
     }}>
       {/* Background */}

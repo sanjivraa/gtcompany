@@ -8,10 +8,10 @@ import { MapPin, Users, Globe2, Building2 } from 'lucide-react';
 
 const locations = [
   { city: 'San Francisco', country: 'USA', lat: 37.7749, lng: -122.4194, clients: 18, color: '#FF6B00' },
-  { city: 'London', country: 'UK', lat: 51.5074, lng: -0.1278, clients: 12, color: '#00BFFF' },
+  { city: 'London', country: 'UK', lat: 51.5074, lng: -0.1278, clients: 12, color: '#1A8FFF' },
   { city: 'Singapore', country: 'SG', lat: 1.3521, lng: 103.8198, clients: 9, color: '#10B981' },
   { city: 'Dubai', country: 'UAE', lat: 25.2048, lng: 55.2708, clients: 7, color: '#F59E0B' },
-  { city: 'Mumbai', country: 'India', lat: 19.0760, lng: 72.8777, clients: 11, color: '#7C3AED' },
+  { city: 'Mumbai', country: 'India', lat: 19.0760, lng: 72.8777, clients: 11, color: '#0A6FD4' },
   { city: 'Sydney', country: 'AUS', lat: -33.8688, lng: 151.2093, clients: 5, color: '#FF3B30' },
 ];
 
@@ -66,7 +66,7 @@ function EarthGlobe() {
       {/* Wireframe overlay */}
       <mesh ref={wireRef}>
         <sphereGeometry args={[2.01, 24, 24]} />
-        <meshBasicMaterial color="#00BFFF" wireframe opacity={0.06} transparent />
+        <meshBasicMaterial color="#1A8FFF" wireframe opacity={0.06} transparent />
       </mesh>
 
       {/* Outer glow sphere */}
@@ -113,14 +113,14 @@ const GlobalPresence = () => {
       ref={ref}
       className="section-padding"
       style={{
-        background: 'linear-gradient(180deg, #050505 0%, #080808 50%, #050505 100%)',
+        background: 'linear-gradient(180deg, #050A14 0%, #080f1c 50%, #050A14 100%)',
         position: 'relative', overflow: 'hidden'
       }}
     >
       {/* Background */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,191,255,0.04) 0%, transparent 70%)'
+        background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26,143,255,0.04) 0%, transparent 70%)'
       }} />
 
       <div className="container">
@@ -214,7 +214,7 @@ const GlobalPresence = () => {
               position: 'absolute', top: '50%', left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '300px', height: '300px', borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(0,191,255,0.1) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(26,143,255,0.1) 0%, transparent 70%)',
               pointerEvents: 'none', zIndex: 0
             }} />
             <Canvas
@@ -225,7 +225,7 @@ const GlobalPresence = () => {
             >
               <ambientLight intensity={0.5} />
               <pointLight position={[10, 10, 10]} intensity={2} color="#FF6B00" />
-              <pointLight position={[-10, -5, -10]} intensity={1} color="#00BFFF" />
+              <pointLight position={[-10, -5, -10]} intensity={1} color="#1A8FFF" />
               <Stars radius={80} depth={50} count={2000} factor={2} saturation={0} fade speed={0.3} />
               <Suspense fallback={null}>
                 <EarthGlobe />

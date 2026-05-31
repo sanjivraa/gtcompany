@@ -16,7 +16,7 @@ export default function Founder() {
 
   return (
     <section id="founder" ref={ref} className="section-padding"
-      style={{ background: "linear-gradient(180deg,#050505 0%,#080808 50%,#050505 100%)", position: "relative", overflow: "hidden" }}>
+      style={{ background: "linear-gradient(180deg,#050A14 0%,#080f1c 50%,#050A14 100%)", position: "relative", overflow: "hidden" }}>
 
       {/* bg glow */}
       <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 6, repeat: Infinity }}
@@ -40,13 +40,13 @@ export default function Founder() {
             <div style={{ position: "relative", width: "320px" }}>
               {/* rotating border */}
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                style={{ position: "absolute", inset: "-2px", borderRadius: "26px", background: "conic-gradient(from 0deg,#FF6B00,#FF3B30,#7C3AED,#00BFFF,#FF6B00)", zIndex: 0, opacity: 0.65 }} />
+                style={{ position: "absolute", inset: "-2px", borderRadius: "26px", background: "conic-gradient(from 0deg,#FF6B00,#FF3B30,#1A8FFF,#0A6FD4,#FF6B00)", zIndex: 0, opacity: 0.65 }} />
               <div style={{ position: "relative", zIndex: 1, background: "rgba(8,8,12,0.96)", borderRadius: "24px", padding: "36px", backdropFilter: "blur(20px)", textAlign: "center" }}>
 
                 {/* Avatar */}
                 <div style={{ position: "relative", width: "110px", height: "110px", margin: "0 auto 20px" }}>
                   <motion.div animate={{ rotate: 360 }} transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-                    style={{ position: "absolute", inset: "-3px", borderRadius: "50%", background: "conic-gradient(from 0deg,#FF6B00,#FF3B30,#00BFFF,#FF6B00)", opacity: 0.8 }} />
+                    style={{ position: "absolute", inset: "-3px", borderRadius: "50%", background: "conic-gradient(from 0deg,#FF6B00,#FF3B30,#1A8FFF,#FF6B00)", opacity: 0.8 }} />
                   <div style={{ position: "relative", zIndex: 1, width: "110px", height: "110px", borderRadius: "50%", background: "linear-gradient(135deg,#1a0800,#080818)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px", fontWeight: "900", fontFamily: "'Space Grotesk',sans-serif", color: "white", overflow: "hidden" }}>
                     SR
                     <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 4 }}

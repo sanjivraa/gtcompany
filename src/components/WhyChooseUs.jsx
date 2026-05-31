@@ -5,10 +5,10 @@ import { Reveal, Stagger, StaggerChild } from "./AnimatedSection";
 
 const features = [
   { icon: Brain,          title: "AI-First Approach",    color: "#FF6B00", stat: "10x",    statLabel: "Faster Delivery",  desc: "Every solution we build is infused with intelligent automation and machine learning from the ground up." },
-  { icon: ShieldCheck,    title: "Enterprise Security",   color: "#00BFFF", stat: "100%",   statLabel: "Compliance Rate",  desc: "Bank-grade security protocols, SOC2 compliance, and zero-trust architecture protecting your assets." },
+  { icon: ShieldCheck,    title: "Enterprise Security",   color: "#1A8FFF", stat: "100%",   statLabel: "Compliance Rate",  desc: "Bank-grade security protocols, SOC2 compliance, and zero-trust architecture protecting your assets." },
   { icon: Zap,            title: "Lightning Performance", color: "#F59E0B", stat: "99.99%", statLabel: "Uptime SLA",       desc: "Sub-100ms response times, 99.99% uptime SLAs, and globally distributed infrastructure." },
   { icon: Users,          title: "Dedicated Teams",       color: "#10B981", stat: "80+",    statLabel: "Expert Engineers", desc: "Senior engineers, designers, and strategists fully embedded in your project — not outsourced." },
-  { icon: Trophy,         title: "Proven Excellence",     color: "#7C3AED", stat: "12+",    statLabel: "Industry Awards",  desc: "Award-winning solutions recognized by industry leaders, delivering beyond expectations." },
+  { icon: Trophy,         title: "Proven Excellence",     color: "#0A6FD4", stat: "12+",    statLabel: "Industry Awards",  desc: "Award-winning solutions recognized by industry leaders, delivering beyond expectations." },
   { icon: Clock,          title: "On-Time Delivery",      color: "#FF3B30", stat: "98%",    statLabel: "On-Time Rate",     desc: "Agile methodology with transparent milestones ensures your project ships on schedule." },
   { icon: HeartHandshake, title: "Long-Term Partnership", color: "#EC4899", stat: "95%",    statLabel: "Client Retention", desc: "We do not just build and leave. Our support teams ensure your solution evolves with your business." },
   { icon: TrendingUp,     title: "Measurable ROI",        color: "#14B8A6", stat: "300%",   statLabel: "Avg. ROI",         desc: "Data-driven approach with clear KPIs and ROI tracking so you always know the business impact." },
@@ -38,7 +38,7 @@ export default function WhyChooseUs() {
 
   return (
     <section id="why-us" className="section-padding"
-      style={{ background: "linear-gradient(180deg,#050505 0%,#080808 50%,#050505 100%)", position: "relative", overflow: "hidden" }}>
+      style={{ background: "linear-gradient(180deg,#050A14 0%,#080f1c 50%,#050A14 100%)", position: "relative", overflow: "hidden" }}>
 
       {/* subtle grid bg */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(rgba(255,107,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,0,0.025) 1px,transparent 1px)", backgroundSize: "60px 60px", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)" }} />

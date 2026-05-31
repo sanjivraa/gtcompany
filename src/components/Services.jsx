@@ -5,11 +5,11 @@ import { Reveal, Stagger, StaggerChild } from "./AnimatedSection";
 const services = [
   { icon: Brain,      title: "AI Development",        color: "#FF6B00", bg: "rgba(255,107,0,0.08)",  border: "rgba(255,107,0,0.18)",  tags: ["Machine Learning","NLP","Computer Vision","AutoML"],
     desc: "Custom AI/ML models, NLP systems, computer vision, and intelligent automation that transform your business operations." },
-  { icon: Globe,      title: "Web Development",        color: "#00BFFF", bg: "rgba(0,191,255,0.07)",  border: "rgba(0,191,255,0.18)",  tags: ["React","Next.js","Node.js","TypeScript"],
+  { icon: Globe,      title: "Web Development",        color: "#1A8FFF", bg: "rgba(26,143,255,0.07)",  border: "rgba(26,143,255,0.18)",  tags: ["React","Next.js","Node.js","TypeScript"],
     desc: "High-performance web applications built with cutting-edge frameworks, optimized for speed, SEO, and exceptional UX." },
   { icon: Smartphone, title: "Mobile App Development", color: "#FF3B30", bg: "rgba(255,59,48,0.08)",  border: "rgba(255,59,48,0.18)",  tags: ["Flutter","React Native","Kotlin","Swift"],
     desc: "Native and cross-platform mobile applications for iOS and Android with stunning UI and seamless performance." },
-  { icon: Cloud,      title: "Cloud Solutions",        color: "#7C3AED", bg: "rgba(124,58,237,0.08)", border: "rgba(124,58,237,0.18)", tags: ["AWS","Azure","GCP","DevOps"],
+  { icon: Cloud,      title: "Cloud Solutions",        color: "#0A6FD4", bg: "rgba(10,111,212,0.08)", border: "rgba(10,111,212,0.18)", tags: ["AWS","Azure","GCP","DevOps"],
     desc: "Scalable cloud architecture, migration strategies, and managed services on AWS, Azure, and Google Cloud." },
   { icon: Server,     title: "Enterprise Software",    color: "#10B981", bg: "rgba(16,185,129,0.08)", border: "rgba(16,185,129,0.18)", tags: ["ERP","CRM","BI","Microservices"],
     desc: "Custom ERP, CRM, and business intelligence platforms engineered for enterprise-scale operations and growth." },
@@ -19,7 +19,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="section-padding" style={{ background: "#050505", position: "relative", overflow: "hidden" }}>
+    <section id="services" className="section-padding" style={{ background: "#050A14", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg,transparent,rgba(255,107,0,0.3),transparent)" }} />
 
       <div className="container">

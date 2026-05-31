@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#050a14"/>
+    </radialGradient>
+    <linearGradient id="blueArc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A8FFF"/>
+      <stop offset="100%" stop-color="#0A4BAF"/>
+    </linearGradient>
+    <linearGradient id="orangeFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#FF4500"/>
+    </linearGradient>
+    <linearGradient id="silverRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c0c0c0"/>
+      <stop offset="100%" stop-color="#808080"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="98" fill="url(#bgGrad)"/>
+
+  <!-- Blue outer arc (the C-shape of G) -->
+  <path d="M 100 20 A 80 80 0 1 0 165 145" stroke="url(#blueArc)" stroke-width="22" fill="none" stroke-linecap="round" filter="url(#glow)"/>
+
+  <!-- Silver orbit ring (ellipse tilted) -->
+  <ellipse cx="100" cy="105" rx="78" ry="22" stroke="url(#silverRing)" stroke-width="5" fill="none" transform="rotate(-20 100 105)" opacity="0.85"/>
+
+  <!-- Orange G letter fill area -->
+  <path d="M 100 42 A 58 58 0 1 0 148 138 L 110 138 L 110 105 L 148 105 L 148 138" stroke="none" fill="url(#orangeFill)" opacity="0.92"/>
+
+  <!-- Circuit dots on orange area -->
+  <circle cx="118" cy="88" r="3" fill="#FFD700" opacity="0.9"/>
+  <circle cx="132" cy="88" r="3" fill="#FFD700" opacity="0.9"/>
+  <circle cx="118" cy="100" r="3" fill="#FFD700" opacity="0.9"/>
+  <line x1="118" y1="88" x2="132" y2="88" stroke="#FFD700" stroke-width="1.5" opacity="0.7"/>
+  <line x1="118" y1="88" x2="118" y2="100" stroke="#FFD700" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Circuit dots on blue arc (left side) -->
+  <circle cx="38" cy="80" r="3" fill="#1A8FFF" opacity="0.8"/>
+  <circle cx="30" cy="95" r="3" fill="#1A8FFF" opacity="0.8"/>
+  <circle cx="38" cy="110" r="3" fill="#1A8FFF" opacity="0.8"/>
+  <line x1="38" y1="80" x2="30" y2="95" stroke="#1A8FFF" stroke-width="1.5" opacity="0.6"/>
+  <line x1="30" y1="95" x2="38" y2="110" stroke="#1A8FFF" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Star sparkle top right -->
+  <path d="M 162 38 L 165 30 L 168 38 L 176 41 L 168 44 L 165 52 L 162 44 L 154 41 Z" fill="#FFD700" opacity="0.9" filter="url(#glow)"/>
+</svg>

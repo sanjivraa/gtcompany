@@ -18,7 +18,7 @@ function GalaxyCore() {
       const rz = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.4;
       pos[i*3] = Math.cos(angle)*r+rx; pos[i*3+1] = ry; pos[i*3+2] = Math.sin(angle)*r+rz;
       const t = r/6;
-      const c0 = new THREE.Color("#FF6B00"), c1 = new THREE.Color("#FF3B30"), c2 = new THREE.Color("#4040CC");
+      const c0 = new THREE.Color("#FF6B00"), c1 = new THREE.Color("#FF3B30"), c2 = new THREE.Color("#1A8FFF");
       const fc = t < 0.5 ? c0.clone().lerp(c1, t*2) : c1.clone().lerp(c2, (t-0.5)*2);
       col[i*3]=fc.r; col[i*3+1]=fc.g; col[i*3+2]=fc.b;
     }
@@ -61,7 +61,7 @@ function NebulaDust() {
   const ref = useRef();
   const data = useMemo(() => {
     const count = 2500, pos = new Float32Array(count*3), col = new Float32Array(count*3);
-    const palette = ["#FF6B00","#FF3B30","#7C3AED","#1a1aCC"].map(c => new THREE.Color(c));
+    const palette = ["#FF6B00","#FF3B30","#1A8FFF","#0A6FD4"].map(c => new THREE.Color(c));
     for (let i = 0; i < count; i++) {
       const r=1.5+Math.random()*4.5, t=Math.random()*Math.PI*2, p=(Math.random()-0.5)*0.4;
       pos[i*3]=r*Math.cos(t); pos[i*3+1]=r*Math.sin(p); pos[i*3+2]=r*Math.sin(t);
@@ -95,7 +95,7 @@ function OrbitRings() {
   return (
     <>
       <mesh ref={r1}><torusGeometry args={[3.8,0.009,8,140]}/><meshBasicMaterial color="#FF6B00" transparent opacity={0.18}/></mesh>
-      <mesh ref={r2}><torusGeometry args={[5.0,0.006,8,140]}/><meshBasicMaterial color="#4040CC" transparent opacity={0.10}/></mesh>
+      <mesh ref={r2}><torusGeometry args={[5.0,0.006,8,140]}/><meshBasicMaterial color="#1A8FFF" transparent opacity={0.10}/></mesh>
       <mesh ref={r3}><torusGeometry args={[2.8,0.011,8,140]}/><meshBasicMaterial color="#FF3B30" transparent opacity={0.14}/></mesh>
     </>
   );
@@ -135,14 +135,14 @@ function GalaxyScene({ mouseX, mouseY }) {
     <group ref={groupRef}>
       <ambientLight intensity={0.15}/>
       <pointLight position={[0,0,0]} intensity={4} color="#FF8C00" distance={9}/>
-      <pointLight position={[3,3,4]} intensity={1.2} color="#4060FF" distance={14}/>
+      <pointLight position={[3,3,4]} intensity={1.2} color="#1A8FFF" distance={14}/>
       <pointLight position={[-3,-2,-4]} intensity={0.8} color="#FF3B30" distance={11}/>
       <Stars radius={100} depth={60} count={5000} factor={4} saturation={0} fade speed={0.2}/>
       <GalaxyCore/><NebulaDust/><OrbitRings/>
       <FloatingGem position={[4.2,1.5,-1]} shape="oct" color="#FF6B00" speed={0.9} scale={1.1}/>
-      <FloatingGem position={[5.5,-1.0,-2]} shape="tet" color="#4040CC" speed={0.6} scale={0.9}/>
+      <FloatingGem position={[5.5,-1.0,-2]} shape="tet" color="#1A8FFF" speed={0.6} scale={0.9}/>
       <FloatingGem position={[3.0,-2.2,1]} shape="ico" color="#FF3B30" speed={1.2} scale={0.8}/>
-      <FloatingGem position={[5.2,2.5,-3]} shape="dod" color="#7C3AED" speed={0.45} scale={1.0}/>
+      <FloatingGem position={[5.2,2.5,-3]} shape="dod" color="#0A6FD4" speed={0.45} scale={1.0}/>
     </group>
   );
 }
@@ -200,11 +200,11 @@ const Hero = () => {
     <section
       id="hero"
       onMouseMove={handleMouseMove}
-      style={{ position:"relative", minHeight:"100vh", background:"#020208", overflow:"hidden" }}
+      style={{ position:"relative", minHeight:"100vh", background:"#050A14", overflow:"hidden" }}
     >
       {/* ── deep space bg ── */}
       <div style={{ position:"absolute", inset:0, pointerEvents:"none", zIndex:0,
-        background:"radial-gradient(ellipse 120% 100% at 70% 50%, rgba(14,0,30,0.85) 0%, #020208 55%)" }}/>
+        background:"radial-gradient(ellipse 120% 100% at 70% 50%, rgba(5,15,40,0.85) 0%, #050A14 55%)" }}/>
 
       {/* ── galaxy canvas — covers RIGHT 55% on desktop, full-width on mobile ── */}
       <div className="hero-canvas-wrap">
@@ -275,7 +275,7 @@ const Hero = () => {
             }}>Future</span>
             {" "}Through{" "}
             <span style={{
-              background:"linear-gradient(135deg,#00BFFF,#7C3AED)",
+              background:"linear-gradient(135deg,#1A8FFF,#0A6FD4)",
               WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text"
             }}>Intelligent</span>
             {" "}Technology
@@ -368,7 +368,7 @@ const Hero = () => {
           position: absolute;
           top: 0; left: 0; bottom: 0;
           width: 45%; z-index: 2; pointer-events: none;
-          background: linear-gradient(to right, #020208 0%, transparent 100%);
+          background: linear-gradient(to right, #050A14 0%, transparent 100%);
         }
 
         /* ── Text wrapper ── */
@@ -405,7 +405,7 @@ const Hero = () => {
             top: auto !important; left: 0 !important;
             bottom: 0 !important; right: 0 !important;
             width: 100% !important; height: 40% !important;
-            background: linear-gradient(to top, #020208 0%, transparent 100%) !important;
+            background: linear-gradient(to top, #050A14 0%, transparent 100%) !important;
           }
           .hero-text-wrap {
             width: 100% !important;
