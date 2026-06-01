@@ -2,41 +2,44 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, Share2, ExternalLink, AtSign, Hash, ArrowUpRight, Mail, CheckCircle } from 'lucide-react';
 
-// ── Update these with real URLs ──────────────────────────────────────────────
+const CONTACT_EMAIL = 'hello@guhanix.com';
+
+// ── Update social URLs with your real profiles ───────────────────────────────
 const SOCIAL_LINKS = {
   LinkedIn:  'https://linkedin.com/company/guhanix-technologies',
-  Twitter:   'https://twitter.com/guhanixtech',
   GitHub:    'https://github.com/sanjivraa',
   Instagram: 'https://instagram.com/guhanixtech',
+  Twitter:   'https://twitter.com/guhanixtech',
   YouTube:   'https://youtube.com/@guhanixtech',
 };
 
-const CONTACT_EMAIL = 'hello@guhanix.com';
-
 const footerSections = {
-  Services: [
-    { label: 'AI Development',      href: '#services' },
-    { label: 'Web Development',     href: '#services' },
-    { label: 'Mobile Apps',         href: '#services' },
-    { label: 'Cloud Solutions',     href: '#services' },
-    { label: 'Enterprise Software', href: '#services' },
-    { label: 'UI/UX Design',        href: '#services' },
+  // What we build — all scroll to the services section
+  'What We Build': [
+    { label: 'AI & Machine Learning', href: '#services' },
+    { label: 'Web Development',       href: '#services' },
+    { label: 'Mobile Apps',           href: '#services' },
+    { label: 'Cloud Solutions',       href: '#services' },
+    { label: 'Enterprise Software',   href: '#services' },
+    { label: 'UI / UX Design',        href: '#services' },
   ],
-  Company: [
-    { label: 'About Us',   href: '#about'   },
-    { label: 'Our Team',   href: '#founder' },
-    { label: 'Careers',    href: `mailto:careers@guhanix.com` },
-    { label: 'Press Kit',  href: `mailto:${CONTACT_EMAIL}?subject=Press%20Kit%20Request` },
-    { label: 'Blog',       href: '#' },
-    { label: 'Contact',    href: '#contact' },
+  // Navigate the site
+  'Explore': [
+    { label: 'About Us',        href: '#about'        },
+    { label: 'Our Work',        href: '#projects'     },
+    { label: 'Tech Stack',      href: '#technology'   },
+    { label: 'Why Guhanix',     href: '#why-us'       },
+    { label: 'Client Reviews',  href: '#reviews'      },
+    { label: 'Meet the Founder',href: '#founder'      },
   ],
-  Resources: [
-    { label: 'Case Studies',    href: '#projects' },
-    { label: 'Documentation',   href: '#' },
-    { label: 'API Reference',   href: '#' },
-    { label: 'Status Page',     href: '#' },
-    { label: 'Privacy Policy',  href: '#privacy'  },
-    { label: 'Terms of Service',href: '#terms'    },
+  // Get in touch
+  'Get In Touch': [
+    { label: 'Start a Project',      href: '#contact'                                                                    },
+    { label: 'Email Us',             href: `mailto:${CONTACT_EMAIL}`                                                    },
+    { label: 'WhatsApp',             href: 'https://wa.me/919876543210'                                                 },
+    { label: 'Schedule a Call',      href: `mailto:${CONTACT_EMAIL}?subject=Schedule%20a%20Discovery%20Call`           },
+    { label: 'Request a Quote',      href: `mailto:${CONTACT_EMAIL}?subject=Project%20Quote%20Request`                 },
+    { label: 'Join Our Team',        href: `mailto:${CONTACT_EMAIL}?subject=I%20want%20to%20join%20Guhanix`            },
   ],
 };
 
@@ -165,15 +168,16 @@ const Footer = () => {
         {/* Bottom bar */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)' }}>
-            © {new Date().getFullYear()} Guhanix Technologies. All rights reserved.
+            © {new Date().getFullYear()} Guhanix Technologies. All rights reserved. Built with ❤️ in India.
           </div>
           <div style={{ display: 'flex', gap: '24px' }}>
             {[
-              { label: 'Privacy Policy',   href: `mailto:${CONTACT_EMAIL}?subject=Privacy%20Policy%20Inquiry` },
-              { label: 'Terms of Service', href: `mailto:${CONTACT_EMAIL}?subject=Terms%20of%20Service%20Inquiry` },
-              { label: 'Cookie Policy',    href: `mailto:${CONTACT_EMAIL}?subject=Cookie%20Policy%20Inquiry` },
+              { label: 'Contact Us',   href: '#contact' },
+              { label: 'Our Projects', href: '#projects' },
+              { label: 'Reviews',      href: '#reviews' },
             ].map((item, i) => (
-              <motion.button key={i} onClick={() => window.open(item.href, '_blank')}
+              <motion.button key={i}
+                onClick={() => { const el = document.querySelector(item.href); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}
                 whileHover={{ color: '#FF6B00' }}
                 style={{ background: 'none', border: 'none', padding: 0, fontSize: '13px', color: 'rgba(255,255,255,0.3)', cursor: 'pointer', transition: 'color 0.2s', fontFamily: "'Inter', sans-serif" }}>
                 {item.label}
