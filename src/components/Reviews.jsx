@@ -134,35 +134,88 @@ const Reviews = () => {
   /* ── Real-time listener ── */
   useEffect(() => {
     let unsub;
-    try {
-      const q = query(collection(db, COLLECTION), orderBy("createdAt", "desc"));
-      unsub = onSnapshot(q,
-        (snap) => {
-          if (snap.empty) {
-            setReviews(FALLBACK);
-          } else {
-            setReviews(snap.docs.map(d => ({
-              id: d.id,
-              ...d.data(),
-              date: d.data().createdAt?.toDate?.()?.toISOString?.()?.split("T")[0] ?? d.data().date ?? "",
-            })));
+
+    const startListener = () => {
+      try {
+        // Try ordered query first (requires Firestore index)
+        const q = query(collection(db, COLLECTION), orderBy("createdAt", "desc"));
+        unsub = onSnapshot(
+          q,
+          (snap) => {
+            if (snap.empty) {
+              setReviews(FALLBACK);
+            } else {
+              setReviews(
+                snap.docs.map(d => ({
+                  id: d.id,
+                  ...d.data(),
+                  date:
+                    d.data().createdAt?.toDate?.()?.toISOString?.()?.split("T")[0] ??
+                    d.data().date ??
+                    "",
+                }))
+              );
+            }
+            setLoading(false);
+            setFirebaseOk(true);
+          },
+          async (err) => {
+            console.warn("Ordered query failed:", err.code, err.message);
+
+            // If index missing, fall back to unordered collection snapshot
+            if (err.code === "failed-precondition" || err.code === "unimplemented") {
+              try {
+                const plain = onSnapshot(
+                  collection(db, COLLECTION),
+                  (snap2) => {
+                    if (snap2.empty) {
+                      setReviews(FALLBACK);
+                    } else {
+                      const docs = snap2.docs
+                        .map(d => ({
+                          id: d.id,
+                          ...d.data(),
+                          date:
+                            d.data().createdAt?.toDate?.()?.toISOString?.()?.split("T")[0] ??
+                            d.data().date ??
+                            "",
+                        }))
+                        .sort((a, b) => (b.date > a.date ? 1 : -1));
+                      setReviews(docs);
+                    }
+                    setLoading(false);
+                    setFirebaseOk(true);
+                  },
+                  (err2) => {
+                    console.warn("Firestore read denied:", err2.code, err2.message);
+                    setReviews(FALLBACK);
+                    setLoading(false);
+                    setFirebaseOk(false);
+                  }
+                );
+                unsub = plain;
+              } catch (e) {
+                setReviews(FALLBACK);
+                setLoading(false);
+                setFirebaseOk(false);
+              }
+            } else {
+              // permission-denied or network error
+              setReviews(FALLBACK);
+              setLoading(false);
+              setFirebaseOk(false);
+            }
           }
-          setLoading(false);
-          setFirebaseOk(true);
-        },
-        (err) => {
-          console.warn("Firebase unavailable, using fallback:", err.message);
-          setReviews(FALLBACK);
-          setLoading(false);
-          setFirebaseOk(false);
-        }
-      );
-    } catch (err) {
-      console.warn("Firebase init error:", err.message);
-      setReviews(FALLBACK);
-      setLoading(false);
-      setFirebaseOk(false);
-    }
+        );
+      } catch (err) {
+        console.warn("Firebase init error:", err.message);
+        setReviews(FALLBACK);
+        setLoading(false);
+        setFirebaseOk(false);
+      }
+    };
+
+    startListener();
     return () => unsub?.();
   }, []);
 

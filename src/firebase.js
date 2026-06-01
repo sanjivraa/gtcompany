@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps } from "firebase/app";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC4w9H4pkX2JvrpDoB0Z1GC4VuSooiwRaw",
@@ -11,5 +11,6 @@ const firebaseConfig = {
   measurementId: "G-J9EN7RCVMQ",
 };
 
-const app = initializeApp(firebaseConfig);
+// Prevent duplicate app initialization (hot reload safe)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const db = getFirestore(app);
