@@ -5,112 +5,211 @@ import { Stars } from '@react-three/drei';
 import * as THREE from 'three';
 
 /* ══════════════════════════════════════════════
-   3-D GALAXY  (fills the whole screen)
+   PROPER SPIRAL GALAXY
+   - 2 main arms + 2 minor arms (logarithmic spiral)
+   - Bright dense core bulge
+   - Dust / nebula haze layer
+   - Outer halo scatter
+   - Thin disc thickness (realistic)
 ══════════════════════════════════════════════ */
-function GalaxyArms() {
-  const ref = useRef();
-  const { positions, colors } = useMemo(() => {
-    const count = 12000;
-    const pos = new Float32Array(count * 3);
-    const col = new Float32Array(count * 3);
-    const c0 = new THREE.Color('#FF6B00');
-    const c1 = new THREE.Color('#FF3B30');
-    const c2 = new THREE.Color('#1A8FFF');
-    for (let i = 0; i < count; i++) {
-      const arm   = i % 3;
-      const base  = (arm / 3) * Math.PI * 2;
-      const r     = Math.random() * 6 + 0.3;
-      const angle = base + r * 3.0;
-      const spread = 0.38;
-      pos[i*3]   = Math.cos(angle)*r + (Math.random()-0.5)*spread*2;
-      pos[i*3+1] = (Math.random()-0.5)*0.18;
-      pos[i*3+2] = Math.sin(angle)*r + (Math.random()-0.5)*spread*2;
-      const t  = r / 6;
-      const fc = t < 0.5 ? c0.clone().lerp(c1, t*2) : c1.clone().lerp(c2, (t-0.5)*2);
-      col[i*3]=fc.r; col[i*3+1]=fc.g; col[i*3+2]=fc.b;
-    }
-    return { positions: pos, colors: col };
-  }, []);
 
-  useFrame(({ clock }) => {
-    if (ref.current) ref.current.rotation.y = clock.elapsedTime * 0.055;
-  });
-
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-color"    args={[colors, 3]}    />
-      </bufferGeometry>
-      <pointsMaterial size={0.025} vertexColors transparent opacity={0.95} sizeAttenuation depthWrite={false} />
-    </points>
-  );
+/** Logarithmic spiral: r = a * e^(b*θ) → θ = ln(r/a)/b */
+function spiralAngle(r, tightness = 0.35) {
+  return tightness * Math.log(r + 1);
 }
 
-function GalaxyCore() {
-  const ref = useRef();
-  const { pos, col } = useMemo(() => {
-    const count = 800;
-    const pos = new Float32Array(count*3);
-    const col = new Float32Array(count*3);
-    for (let i = 0; i < count; i++) {
-      const r = Math.random()*0.55;
-      const t = Math.random()*Math.PI*2;
-      const p = Math.random()*Math.PI;
-      pos[i*3]   = r*Math.sin(p)*Math.cos(t);
-      pos[i*3+1] = r*Math.cos(p)*0.22;
-      pos[i*3+2] = r*Math.sin(p)*Math.sin(t);
-      col[i*3]=1; col[i*3+1]=0.88; col[i*3+2]=0.5;
+function SpiralGalaxy() {
+  const discRef  = useRef();
+  const coreRef  = useRef();
+  const hazeRef  = useRef();
+  const haloRef  = useRef();
+
+  /* ── Spiral disc arms ── */
+  const disc = useMemo(() => {
+    const NUM_ARMS   = 2;          // 2 main arms (+ 2 minor offset by π)
+    const STARS      = 18000;
+    const pos = new Float32Array(STARS * 3);
+    const col = new Float32Array(STARS * 3);
+
+    const cInner = new THREE.Color('#FFD580'); // warm yellow-white near core
+    const cMid   = new THREE.Color('#FF6B00'); // orange mid-arm
+    const cOuter = new THREE.Color('#1A8FFF'); // blue outer arm tips
+
+    for (let i = 0; i < STARS; i++) {
+      /* which arm (0,1 = main; 2,3 = minor offset by π + small angle) */
+      const armIdx   = i % (NUM_ARMS * 2);
+      const armAngle = (armIdx / (NUM_ARMS * 2)) * Math.PI * 2;
+
+      /* radial distance — exponential distribution so core is denser */
+      const u = Math.random();
+      const r = 0.15 + Math.pow(u, 0.6) * 6.8;   // 0.15 → 6.95
+
+      /* logarithmic spiral angle */
+      const theta = armAngle + spiralAngle(r, 0.38);
+
+      /* arm width grows with radius */
+      const armWidth = 0.06 + r * 0.055;
+      const spread   = (Math.random() - 0.5) * armWidth * 2;
+
+      /* disc thickness — very thin, flares slightly at edge */
+      const thickness = 0.04 + r * 0.012;
+      const dy = (Math.random() - 0.5) * thickness;
+
+      pos[i*3]   = Math.cos(theta) * r + spread * Math.sin(theta);
+      pos[i*3+1] = dy;
+      pos[i*3+2] = Math.sin(theta) * r - spread * Math.cos(theta);
+
+      /* colour: warm core → orange mid → blue tips */
+      const t = Math.min(r / 6.8, 1);
+      let fc;
+      if (t < 0.25)      fc = cInner.clone().lerp(cMid,   t / 0.25);
+      else if (t < 0.65) fc = cMid.clone().lerp(cOuter,   (t - 0.25) / 0.4);
+      else               fc = cOuter.clone().lerp(new THREE.Color('#0A4BAF'), (t - 0.65) / 0.35);
+
+      /* brightness falloff */
+      const bright = 0.55 + 0.45 * Math.exp(-r * 0.18);
+      col[i*3]   = fc.r * bright;
+      col[i*3+1] = fc.g * bright;
+      col[i*3+2] = fc.b * bright;
     }
     return { pos, col };
   }, []);
-  useFrame(({ clock }) => { if (ref.current) ref.current.rotation.y = -clock.elapsedTime * 0.11; });
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[pos, 3]} />
-        <bufferAttribute attach="attributes-color"    args={[col, 3]} />
-      </bufferGeometry>
-      <pointsMaterial size={0.08} vertexColors transparent opacity={1} sizeAttenuation depthWrite={false} />
-    </points>
-  );
-}
 
-function OrbitRings() {
-  const r1=useRef(), r2=useRef(), r3=useRef();
+  /* ── Dense bright core bulge ── */
+  const core = useMemo(() => {
+    const N   = 2200;
+    const pos = new Float32Array(N * 3);
+    const col = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      /* Gaussian distribution for bulge */
+      const r  = Math.abs(gaussRand() * 0.55);
+      const th = Math.random() * Math.PI * 2;
+      const ph = Math.random() * Math.PI;
+      pos[i*3]   = r * Math.sin(ph) * Math.cos(th);
+      pos[i*3+1] = r * Math.cos(ph) * 0.55;   // slightly flattened
+      pos[i*3+2] = r * Math.sin(ph) * Math.sin(th);
+      /* warm white → yellow */
+      const t = r / 0.55;
+      col[i*3]   = 1;
+      col[i*3+1] = 0.88 - t * 0.18;
+      col[i*3+2] = 0.55 - t * 0.35;
+    }
+    return { pos, col };
+  }, []);
+
+  /* ── Nebula dust haze (large diffuse particles) ── */
+  const haze = useMemo(() => {
+    const N   = 1800;
+    const pos = new Float32Array(N * 3);
+    const col = new Float32Array(N * 3);
+    const palette = [
+      new THREE.Color('#FF6B00'),
+      new THREE.Color('#FF3B30'),
+      new THREE.Color('#1A8FFF'),
+      new THREE.Color('#0A4BAF'),
+    ];
+    for (let i = 0; i < N; i++) {
+      const r  = 0.5 + Math.random() * 5.5;
+      const th = Math.random() * Math.PI * 2;
+      pos[i*3]   = Math.cos(th) * r + (Math.random()-0.5) * 1.2;
+      pos[i*3+1] = (Math.random()-0.5) * 0.22;
+      pos[i*3+2] = Math.sin(th) * r + (Math.random()-0.5) * 1.2;
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+    }
+    return { pos, col };
+  }, []);
+
+  /* ── Outer halo (sparse, faint) ── */
+  const halo = useMemo(() => {
+    const N   = 1200;
+    const pos = new Float32Array(N * 3);
+    const col = new Float32Array(N * 3);
+    for (let i = 0; i < N; i++) {
+      const r  = 5 + Math.random() * 4;
+      const th = Math.random() * Math.PI * 2;
+      const ph = (Math.random() - 0.5) * 0.9;
+      pos[i*3]   = Math.cos(th) * r;
+      pos[i*3+1] = ph * r * 0.15;
+      pos[i*3+2] = Math.sin(th) * r;
+      col[i*3]=0.4; col[i*3+1]=0.5; col[i*3+2]=0.7;
+    }
+    return { pos, col };
+  }, []);
+
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
-    if (r1.current) { r1.current.rotation.z = t*0.28; r1.current.rotation.x = t*0.09; }
-    if (r2.current) { r2.current.rotation.z = -t*0.18; r2.current.rotation.y = t*0.13; }
-    if (r3.current) { r3.current.rotation.x = t*0.22; r3.current.rotation.z = t*0.07; }
+    if (discRef.current)  discRef.current.rotation.y  =  t * 0.045;
+    if (coreRef.current)  coreRef.current.rotation.y  = -t * 0.025;
+    if (hazeRef.current)  hazeRef.current.rotation.y  =  t * 0.018;
+    if (haloRef.current)  haloRef.current.rotation.y  =  t * 0.010;
   });
+
   return (
     <>
-      <mesh ref={r1}><torusGeometry args={[3.5,0.009,8,140]}/><meshBasicMaterial color="#FF6B00" transparent opacity={0.25}/></mesh>
-      <mesh ref={r2}><torusGeometry args={[4.8,0.006,8,140]}/><meshBasicMaterial color="#1A8FFF" transparent opacity={0.16}/></mesh>
-      <mesh ref={r3}><torusGeometry args={[2.6,0.011,8,140]}/><meshBasicMaterial color="#FF3B30" transparent opacity={0.20}/></mesh>
+      {/* Spiral disc */}
+      <points ref={discRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[disc.pos, 3]} />
+          <bufferAttribute attach="attributes-color"    args={[disc.col, 3]} />
+        </bufferGeometry>
+        <pointsMaterial size={0.022} vertexColors transparent opacity={0.92} sizeAttenuation depthWrite={false} />
+      </points>
+
+      {/* Core bulge */}
+      <points ref={coreRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[core.pos, 3]} />
+          <bufferAttribute attach="attributes-color"    args={[core.col, 3]} />
+        </bufferGeometry>
+        <pointsMaterial size={0.075} vertexColors transparent opacity={1} sizeAttenuation depthWrite={false} />
+      </points>
+
+      {/* Nebula haze */}
+      <points ref={hazeRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[haze.pos, 3]} />
+          <bufferAttribute attach="attributes-color"    args={[haze.col, 3]} />
+        </bufferGeometry>
+        <pointsMaterial size={0.055} vertexColors transparent opacity={0.22} sizeAttenuation depthWrite={false} />
+      </points>
+
+      {/* Outer halo */}
+      <points ref={haloRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[halo.pos, 3]} />
+          <bufferAttribute attach="attributes-color"    args={[halo.col, 3]} />
+        </bufferGeometry>
+        <pointsMaterial size={0.018} vertexColors transparent opacity={0.35} sizeAttenuation depthWrite={false} />
+      </points>
     </>
   );
 }
 
-function GalaxyScene({ progress }) {
+/* Box-Muller Gaussian random */
+function gaussRand() {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+function GalaxyScene() {
   const groupRef = useRef();
   useFrame(({ clock }) => {
     if (!groupRef.current) return;
-    // Slowly tilt up as progress increases — feels like zooming into the galaxy
-    groupRef.current.rotation.x = 0.48 + Math.sin(clock.elapsedTime * 0.12) * 0.03;
-    groupRef.current.rotation.y = clock.elapsedTime * 0.008;
+    /* Gentle tilt so we see the disc at ~25° — classic galaxy view */
+    groupRef.current.rotation.x = 0.42 + Math.sin(clock.elapsedTime * 0.10) * 0.025;
   });
   return (
     <group ref={groupRef}>
-      <ambientLight intensity={0.12} />
-      <pointLight position={[0,0,0]} intensity={4}   color="#FF8C00" distance={9}  />
-      <pointLight position={[4,3,4]} intensity={1.2} color="#1A8FFF" distance={14} />
-      <pointLight position={[-3,-2,-4]} intensity={0.9} color="#FF3B30" distance={11} />
-      <Stars radius={90} depth={60} count={4000} factor={3.5} saturation={0} fade speed={0.25} />
-      <GalaxyArms />
-      <GalaxyCore />
-      <OrbitRings />
+      <ambientLight intensity={0.08} />
+      <pointLight position={[0,0,0]}    intensity={5}   color="#FFD580" distance={6}  />
+      <pointLight position={[0,2,0]}    intensity={1.5} color="#FF8C00" distance={10} />
+      <pointLight position={[5,3,5]}    intensity={0.8} color="#1A8FFF" distance={16} />
+      <pointLight position={[-4,-2,-5]} intensity={0.6} color="#FF3B30" distance={12} />
+      <Stars radius={100} depth={70} count={5000} factor={4} saturation={0} fade speed={0.2} />
+      <SpiralGalaxy />
     </group>
   );
 }
@@ -272,7 +371,7 @@ const Loader = ({ onComplete }) => {
           >
             {/* ── Full-screen galaxy ── */}
             <div style={{ position:'absolute', inset:0, zIndex:0 }}>
-              <Canvas camera={{ position:[0,4.2,8.5], fov:50 }} gl={{ antialias:true, alpha:true }} dpr={[1,1.5]} style={{ width:'100%', height:'100%' }}>
+              <Canvas camera={{ position:[0,5.5,11], fov:46 }} gl={{ antialias:true, alpha:true }} dpr={[1,1.5]} style={{ width:'100%', height:'100%' }}>
                 <Suspense fallback={null}>
                   <GalaxyScene progress={progress} />
                 </Suspense>
@@ -282,7 +381,7 @@ const Loader = ({ onComplete }) => {
             {/* ── Soft center spotlight (not a heavy vignette) ── */}
             <div style={{
               position:'absolute', inset:0, zIndex:1, pointerEvents:'none',
-              background:'radial-gradient(ellipse 55% 55% at 50% 50%, transparent 0%, rgba(5,10,20,0.55) 65%, rgba(5,10,20,0.88) 100%)',
+              background:'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(5,10,20,0.35) 70%, rgba(5,10,20,0.82) 100%)',
             }} />
 
             {/* ── Scanline texture ── */}
