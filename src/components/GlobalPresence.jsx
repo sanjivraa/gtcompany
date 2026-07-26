@@ -7,12 +7,12 @@ import { Reveal, Stagger, StaggerChild } from './AnimatedSection';
 import { MapPin, Users, Globe2, Building2 } from 'lucide-react';
 
 const locations = [
-  { city: 'San Francisco', country: 'USA', lat: 37.7749, lng: -122.4194, clients: 18, color: '#FF6B00' },
-  { city: 'London', country: 'UK', lat: 51.5074, lng: -0.1278, clients: 12, color: '#1A8FFF' },
-  { city: 'Singapore', country: 'SG', lat: 1.3521, lng: 103.8198, clients: 9, color: '#10B981' },
-  { city: 'Dubai', country: 'UAE', lat: 25.2048, lng: 55.2708, clients: 7, color: '#F59E0B' },
-  { city: 'Mumbai', country: 'India', lat: 19.0760, lng: 72.8777, clients: 11, color: '#0A6FD4' },
-  { city: 'Sydney', country: 'AUS', lat: -33.8688, lng: 151.2093, clients: 5, color: '#FF3B30' },
+  { city: 'Bengaluru',     country: 'India 🇮🇳', lat: 12.9165,  lng: 77.6101,  clients: 22, color: '#FF6B00' },
+  { city: 'Mumbai',        country: 'India',     lat: 19.0760,  lng: 72.8777,  clients: 11, color: '#1A8FFF' },
+  { city: 'Dubai',         country: 'UAE',       lat: 25.2048,  lng: 55.2708,  clients: 9,  color: '#F59E0B' },
+  { city: 'Singapore',     country: 'SG',        lat: 1.3521,   lng: 103.8198, clients: 8,  color: '#10B981' },
+  { city: 'London',        country: 'UK',        lat: 51.5074,  lng: -0.1278,  clients: 7,  color: '#0A6FD4' },
+  { city: 'San Francisco', country: 'USA',       lat: 37.7749,  lng: -122.4194,clients: 5,  color: '#FF3B30' },
 ];
 
 const stats = [
@@ -142,7 +142,7 @@ const GlobalPresence = () => {
             </span>
           </h2>
           <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.5)', maxWidth: '560px', margin: '0 auto', lineHeight: '1.7' }}>
-            From Silicon Valley to Singapore, our technology solutions power businesses across 15+ countries.
+            Headquartered in BTM Layout, Bengaluru — delivering world-class technology solutions across 15+ countries.
           </p>
         </motion.div>
 

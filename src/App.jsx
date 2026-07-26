@@ -1,6 +1,5 @@
-﻿import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Loader from "./components/Loader";
+﻿import { useEffect, useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
 import Navbar from "./components/Navbar";
@@ -18,36 +17,33 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
-  const [loading, setLoading] = useState(true);
   return (
     <>
       <CustomCursor />
       <ScrollProgress />
       <div className="noise-overlay" />
-      <AnimatePresence>
-        {loading && <Loader onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
-      <AnimatePresence>
-        {!loading && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <Navbar />
-            <main>
-              <Hero />
-              <About />
-              <Founder />
-              <Services />
-              <Technology />
-              <Projects />
-              <WhyChooseUs />
-              <Reviews />
-              <GlobalPresence />
-              <Contact />
-            </main>
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Founder />
+          <Services />
+          <Technology />
+          <Projects />
+          <WhyChooseUs />
+          <Reviews />
+          <GlobalPresence />
+          <Contact />
+        </main>
+        <Footer />
+      </motion.div>
     </>
   );
 }
+
 export default App;

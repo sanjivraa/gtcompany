@@ -8,9 +8,9 @@ const WHATSAPP_NUMBER = ''; // e.g. '919876543210' — add your WhatsApp number 
 const CALENDLY_URL = ''; // e.g. 'https://calendly.com/guhanix' — add your Calendly link here
 
 const contactInfo = [
-  { icon: Mail,   label: 'Email Us',      value: 'hello@guhanix.com',   color: '#FF6B00', action: () => window.open(`mailto:${CONTACT_EMAIL}`, '_blank') },
-  { icon: Phone,  label: 'Call Us',       value: '+91 00000 00000',      color: '#1A8FFF', action: () => window.open('tel:+910000000000', '_blank') },
-  { icon: MapPin, label: 'Headquarters',  value: 'Chennai, Tamil Nadu',  color: '#10B981', action: null },
+  { icon: Mail,   label: 'Email Us',      value: 'hello@guhanix.com',        color: '#FF6B00', action: () => window.open(`mailto:${CONTACT_EMAIL}`, '_blank') },
+  { icon: Phone,  label: 'Call Us',       value: '+91 00000 00000',           color: '#1A8FFF', action: () => window.open('tel:+910000000000', '_blank') },
+  { icon: MapPin, label: 'Headquarters',  value: 'BTM Layout, Bengaluru',     color: '#10B981', action: () => window.open('https://maps.google.com/?q=BTM+Layout+Bengaluru+Karnataka', '_blank') },
 ];
 
 const FloatingInput = ({ label, type = 'text', name, value, onChange, required, multiline }) => {
