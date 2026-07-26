@@ -118,15 +118,23 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <motion.div whileHover={{ scale: 1.02 }} onClick={scrollToTop}
-              style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', cursor: 'pointer' }}>
-              <div style={{ width: '42px', height: '42px', flexShrink: 0, filter: 'drop-shadow(0 0 8px rgba(255,107,0,0.4))' }}>
-                <img src="/src/assets/logo.svg" alt="Guhanix Logo" style={{ width: '42px', height: '42px', borderRadius: '10px' }} />
+              style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', cursor: 'pointer' }}>
+              {/* G icon — no external image */}
+              <div style={{
+                width: '40px', height: '40px', borderRadius: '11px', flexShrink: 0,
+                background: 'linear-gradient(135deg, #0D1626 0%, #050A14 100%)',
+                border: '1px solid rgba(255,107,0,0.28)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <span style={{ fontSize: '20px', fontWeight: '900', fontFamily: "'Space Grotesk', sans-serif", background: 'linear-gradient(135deg, #FF6B00, #1A8FFF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', letterSpacing: '-1px', position: 'relative', zIndex: 1 }}>G</span>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%', background: 'rgba(255,255,255,0.04)', borderRadius: '11px 11px 0 0' }} />
               </div>
               <div>
-                <div style={{ fontSize: '18px', fontWeight: '700', fontFamily: "'Space Grotesk', sans-serif" }}>
+                <div style={{ fontSize: '17px', fontWeight: '800', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.01em' }}>
                   <span style={{ color: '#1A8FFF' }}>GUHA</span><span style={{ color: '#FF6B00' }}>NIX</span>
                 </div>
-                <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>TECHNOLOGY</div>
+                <div style={{ fontSize: '9px', fontWeight: '600', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: '2px' }}>TECHNOLOGY</div>
               </div>
             </motion.div>
 

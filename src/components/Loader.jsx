@@ -407,7 +407,7 @@ const Loader = ({ onComplete }) => {
                   />
                 ))}
 
-                {/* Logo image */}
+                {/* G brand mark — no external image */}
                 <motion.div
                   initial={{ opacity:0, scale:0.5, rotate:-15 }}
                   animate={{ opacity:1, scale:1,   rotate:0   }}
@@ -416,13 +416,28 @@ const Loader = ({ onComplete }) => {
                 >
                   <motion.div
                     animate={stage === 'complete'
-                      ? { scale:[1,1.15,1], filter:['drop-shadow(0 0 20px rgba(255,107,0,0.6))','drop-shadow(0 0 50px rgba(255,107,0,1))','drop-shadow(0 0 20px rgba(255,107,0,0.6))'] }
-                      : { filter:'drop-shadow(0 0 20px rgba(255,107,0,0.6))' }
+                      ? { scale:[1,1.18,1], boxShadow:['0 0 20px rgba(255,107,0,0.5)','0 0 55px rgba(255,107,0,1)','0 0 20px rgba(255,107,0,0.5)'] }
+                      : { boxShadow:'0 0 20px rgba(255,107,0,0.4)' }
                     }
                     transition={{ duration:0.6 }}
+                    style={{
+                      width:'72px', height:'72px', borderRadius:'18px',
+                      background:'linear-gradient(135deg, #0D1626 0%, #050A14 100%)',
+                      border:'1.5px solid rgba(255,107,0,0.35)',
+                      display:'flex', alignItems:'center', justifyContent:'center',
+                      position:'relative', overflow:'hidden',
+                    }}
                   >
-                    <img src="/src/assets/logo.svg" alt="Guhanix"
-                      style={{ width:'72px', height:'72px', borderRadius:'16px' }} />
+                    <span style={{
+                      fontSize:'34px', fontWeight:'900',
+                      fontFamily:"'Space Grotesk',sans-serif",
+                      background:'linear-gradient(135deg, #FF6B00 0%, #1A8FFF 100%)',
+                      WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+                      backgroundClip:'text', letterSpacing:'-2px',
+                      position:'relative', zIndex:1,
+                    }}>G</span>
+                    {/* inner glow */}
+                    <div style={{ position:'absolute', top:0, left:0, right:0, height:'45%', background:'rgba(255,255,255,0.05)', borderRadius:'18px 18px 0 0' }} />
                   </motion.div>
                 </motion.div>
 
